@@ -1,4 +1,4 @@
-package classloadTset;
+package classloadTest;
 
 public class Hello {
 

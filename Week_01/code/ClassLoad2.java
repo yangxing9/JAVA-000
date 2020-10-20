@@ -2,7 +2,6 @@ package code;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.Method;
 
@@ -15,12 +14,12 @@ public class ClassLoad2 extends ClassLoader {
 
     public static void main(String [] args) throws Exception{
         ClassLoad2 myloader = new ClassLoad2();
-        String path = ClassLoad2.class.getClassLoader().getResource("classloadTset/Hello.xlass").getPath();
+        String path = ClassLoad2.class.getClassLoader().getResource("classloadTest/Hello.xlass").getPath();
         Class c = myloader.findClass(path);
         Object obj = c.newInstance();
         System.out.println("类名：" + obj.getClass().getName());
-        Method m = c.getMethod("hello", null);
-        m.invoke(obj, null);
+        Method m = c.getMethod("hello");
+        m.invoke(obj);
     }
 
     @Override

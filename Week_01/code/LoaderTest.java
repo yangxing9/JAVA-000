@@ -18,7 +18,7 @@ public class LoaderTest {
         ClassLoader classLoader = LoaderTest.class.getClassLoader();
         System.out.println("类加载器：" + classLoader);
         //使用ClassLoader.loadClass()来加载类，不会执行初始化块
-        classLoader.loadClass("classloadTset.Hello").newInstance();
+        classLoader.loadClass("classloadTest.Hello").newInstance();
         // 使用Class.forName()来加载类，默认会执行初始化块
 //        Class.forName("classloadTset.Hello");
 
