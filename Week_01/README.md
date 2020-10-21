@@ -18,6 +18,83 @@
 
 ### 作业：
 - [x] 1、自己写一个简单的Hello.java，里面需要涉及基本类型，四则运行，if和for，然后自己分析一下对应的字节码，有问题群里讨论。
+```java
+/**
+ * @author yangxing
+ * @version 1.0
+ * @date 2020/10/16 0016 14:09
+ */
+public class TestByte {
+
+    private static int a = 99;
+    private static final int b = 100;
+
+    public static void main(String[] args) {
+        TestByte demo = new TestByte();
+        long x = 5;
+        long y = 10;
+        long z = x + y;
+        int res = demo.add(a,b);
+        for (int i = 0; i < res; i++) {
+            if (i < 2){
+                System.out.println("结果：" + i * 2);
+            }
+        }
+    }
+
+    private int add(int a,int b){
+        return a + b;
+    }
+
+}
+```
 - [x] 2、自定义一个Classloader，加载一个Hello.xlass文件，执行hello方法，此文件内容是一个Hello.class文件所有字节(x=255-x)处理后的文件。文件群里提供。
+```java
+**
+ * @author yangxing
+ * @version 1.0
+ * @date 2020/10/16 0016 14:51
+ */
+public class ClassLoad2 extends ClassLoader {
+
+    public static void main(String [] args) throws Exception{
+        ClassLoad2 myloader = new ClassLoad2();
+        String path = ClassLoad2.class.getClassLoader().getResource("classloadTest/Hello.xlass").getPath();
+        Class c = myloader.findClass(path);
+        Object obj = c.newInstance();
+        System.out.println("类名：" + obj.getClass().getName());
+        Method m = c.getMethod("hello");
+        m.invoke(obj);
+    }
+
+    @Override
+    protected Class<?> findClass(String name){
+        byte[] b = null;
+        try {
+            b = getByte(name);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return defineClass(null, b, 0, b.length);
+    }
+
+    private byte[] getByte(String name) throws IOException {
+        FileInputStream in = new FileInputStream(name);
+        byte[] b = new byte[1024];
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        int len = 0;
+        while((len = in.read(b)) != -1){
+            out.write(b, 0, len);
+        }
+        out.close();
+        b = out.toByteArray();
+        for (int i = 0; i < b.length; i++) {
+            b[i] = (byte) (255 - b[i]);
+        }
+        return b;
+    }
+}
+```
 - [x] 3、画一张图，展示Xmx、Xms、Xmn、Meta、DirectMemory、Xss这些内存参数的关系。
+![](jvm内存模型.png)
 - [x] 4、检查一下自己维护的业务系统的JVM参数配置，用jstat和jstack、jmap查看一下详情，并且自己独立分析一下大概情况，思考有没有不合理的地方，如何改进。
