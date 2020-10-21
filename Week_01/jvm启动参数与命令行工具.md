@@ -2,9 +2,11 @@
 ### 堆设置
 - -Xms:初始堆大小,默认为物理内存的1/64(<1GB)
 - -Xmx:最大堆大小 (该参数一般和Xms设置一致，防止每次垃圾回收完成后JVM重新分配内存)
-- -Xmn：新生代的内存空间大小，注意：此处的大小是（eden+ 2 survivor space)。与jmap -heap中显示的New gen是不同的。整个堆大小=新生代大小 + 老生代大小 + 永久代大小。
+- -Xmn： 等价于 -XX:NewSize，使用G1垃圾收集器 不应该 设置该选项，在其他的某些业务场景下可以设置。官方建议设置为 -Xmx 的 1/2 ~ 1/4新生代的内存空间大小，注意：此处的大小是（eden+ 2 survivor space)。与jmap -heap中显示的New gen是不同的。整个堆大小=新生代大小 + 老生代大小 + 永久代大小。
       在保证堆大小不变的情况下，增大新生代后,将会减小老生代大小。此值对系统性能影响较大,Sun官方推荐配置为整个堆的3/8。
-- -Xss512K  //线程大小
+- -Xss512K  //设置每个线程栈的字节数。 例如 -Xss1m 指定线程栈为1MB，与XX:ThreadStackSize=1m等价
+- -XX:MaxMetaspaceSize=size, Java8默认不限制Meta空间, 一般不允许设置该选项。
+- -XX:MaxDirectMemorySize=size，系统可以使用的最大堆外内存，这个参数跟-Dsun.nio.MaxDirectMemorySize效果相同。
 - -XX:NewSize=n:设置年轻代大小
 - -XX:NewRatio=n:设置年轻代和年老代的比值.如:为2,表示年轻代与年老代比值为1:2,年轻代占整个年轻代年老代和的1/3 （默认为2）
 - -XX:SurvivorRatio=n:年轻代中Eden区与两个Survivor区的比值.注意Survivor区有两个.如:8,表示Eden:Survivor=8:2,一个Survivor区占整个年轻代的1/10 （默认为8）
@@ -59,6 +61,10 @@
 - -XX:+PrintGCApplicationStoppedTime //输出gc造成应用停顿的时间
 - -XX:+PrintReferenceGC //输出堆内对象引用收集时间
 - -XX:+PrintHeapAtGC //输出gc前后堆占用情况
+- -XX:+-HeapDumpOnOutOfMemoryError 选项, 当 OutOfMemoryError 产生，即内存溢出(堆内存或持久代)时，自动Dump堆内存。
+> 示例用法: java -XX:+HeapDumpOnOutOfMemoryError -Xmx256m ConsumeHeap
+- -XX:HeapDumpPath 选项, 与HeapDumpOnOutOfMemoryError搭配使用, 指定内存溢出时Dump文件的目录。如果没有指定则默认为启动Java程序的工作目录。
+> 示例用法: java -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/usr/local/ ConsumeHeap 
 
 ### 并行收集器设置
 - -XX:ParallelGCThreads=n: //并行GC线程数， cpu<=8?cpu:5*cpu/8+3 设置并行收集器收集时使用的CPU数.并行收集线程数.
