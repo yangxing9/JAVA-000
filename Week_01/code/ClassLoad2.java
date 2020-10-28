@@ -12,10 +12,12 @@ import java.lang.reflect.Method;
  */
 public class ClassLoad2 extends ClassLoader {
 
+    private static final int offset = 255;
+
     public static void main(String [] args) throws Exception{
         ClassLoad2 myloader = new ClassLoad2();
         String path = ClassLoad2.class.getClassLoader().getResource("classloadTest/Hello.xlass").getPath();
-        Class c = myloader.findClass(path);
+        Class<?> c = myloader.findClass(path);
         Object obj = c.newInstance();
         System.out.println("类名：" + obj.getClass().getName());
         Method m = c.getMethod("hello");
@@ -34,18 +36,32 @@ public class ClassLoad2 extends ClassLoader {
     }
 
     private byte[] getByte(String name) throws IOException {
-        FileInputStream in = new FileInputStream(name);
-        byte[] b = new byte[1024];
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        int len = 0;
-        while((len = in.read(b)) != -1){
-            out.write(b, 0, len);
+        byte[] bytes = new byte[1024];
+        FileInputStream in = null;
+        ByteArrayOutputStream out = null;
+        try {
+            in = new FileInputStream(name);
+            out = new ByteArrayOutputStream();
+            int len;
+            while((len = in.read(bytes)) != -1){
+                out.write(bytes, 0, len);
+            }
+            bytes = out.toByteArray();
+        } finally {
+            if (out != null){
+                out.close();
+            }
+            if (in != null){
+                in.close();
+            }
         }
-        out.close();
-        b = out.toByteArray();
-        for (int i = 0; i < b.length; i++) {
-            b[i] = (byte) (255 - b[i]);
+        convertByte(bytes);
+        return bytes;
+    }
+
+    private void convertByte(byte[] bytes) {
+        for (int i = 0; i < bytes.length; i++) {
+            bytes[i] = (byte) (offset - bytes[i]);
         }
-        return b;
     }
 }
