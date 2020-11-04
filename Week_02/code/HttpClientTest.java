@@ -7,10 +7,10 @@ package code;
  */
 public class HttpClientTest {
 
-    private final static String url = "http://localhost:8803";
+    private final static String url = "http://127.0.0.1:8808/aaa/test";
 
     public static void main(String[] args) {
         HttpClientDemo.testHttpClientGetWithOutParams(url);
-        OkHttpDemo.httpGet(url);
+//        OkHttpDemo.httpGet(url);
     }
 }
