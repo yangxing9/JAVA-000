@@ -1,10 +1,12 @@
-## 作业
+import io.netty.util.concurrent.DefaultThreadFactory;
 
-1.（选做）把示例代码，运行一遍，思考课上相关的问题。也可以做一些比较。
+import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+import java.util.stream.IntStream;
 
-2.（必做）思考有多少种方式，在 main 函数启动一个新线程，运行一个方法，拿到这个方法的返回值后，退出主线程？
-写出你的方法，越多越好，提交到 Github。
-```java
 /**
  * @author yangxing
  * @version 1.0
@@ -67,7 +69,7 @@ public class HomeWork {
         ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(
                 4,
                 8,
-                5,
+                  5,
                 TimeUnit.SECONDS,
                 new ArrayBlockingQueue<>(10),
                 new DefaultThreadFactory("获取斐波那契值线程池"));
@@ -113,7 +115,7 @@ public class HomeWork {
     }
 
     /**
-     * 无锁，主线程中 自旋不断监测 result是否已被赋值
+     * 主线程中 自旋不断监测 result是否已被赋值
      */
     private static void method6() {
         ExecutorService executorService = Executors.newFixedThreadPool(4);
@@ -180,58 +182,3 @@ public class HomeWork {
     }
 
 }
-```
-  
-  [作业链接](HomeWork.java)
-
-Week04 作业题目（周六）：
-
-1.（选做）列举常用的并发操作 API 和工具类，简单分析其使用场景和优缺点。
-- CountDownLatch 实现线程等待
-
-    > 主线程需要等待多个线程执行完成之后做一些操作的时候使用.
-    >
-    >优点: 使用场景比较丰富
-    >
-    >缺点: 不可以重用,再次使用需要初始化计数器的值.
-
-- cyclicBarrier 多个线程之间相互等待.
-
-    > 多个线程互相等待，通过回调执行后续流程 
-    >
-    > cyclibarrier可以指定一个回调函数,调用回调函数的是这些线程之间的最后一个运行完成的线程.
-
-- ReadWriteLock
-    > 读写锁: 可以分为读锁和写锁.
-    >
-    >读锁不能升级为写锁.但是写锁可以降级为读锁.
-    >
-    >优点是读写分离.提高了性能
-
-- Lock和Condition
-    > Lock是一个显示的锁.相比于synchronized更加灵活
-    >
-    > condition的方法和obj锁对象的wait和notify有着类似的效果.
-    >
-    > 一把锁可以有多个condition
-
-- CopyOnWriteArrayList
-    > 是一个读和写复制的线程安全的ArrayList
-    >
-    > 写的时候直接复制一份副本去写,不会影响到旧引用.
-    >
-    > 然后替换旧引用.
-
-2.（选做）请思考：什么是并发？什么是高并发？实现高并发高可用系统需要考虑哪些因素，对于这些你是怎么理解的？
-    
-    多个请求同时对临界区访问，即为并发，高并发及时大量的请求同时对临界区访问
-    需要考虑临界区的数据读写是否发生数据覆盖，以及拿不到最新的数据问题，数据访问读写顺序，也就是数据安全问题
-    一般使用加锁来解决问题，或者乐观锁（注意当非常高的并发时，乐观锁并不一定最好），使用锁须注意防止死锁的发生
-    
-3.（选做）请思考：还有哪些跟并发类似 / 有关的场景和问题，有哪些可以借鉴的解决办法。
-
-4.（必做）把多线程和并发相关知识带你梳理一遍，画一个脑图，截图上传到 Github 上。
-
-  此图为借鉴其他同学的
-   
- ![](多线程.png)
