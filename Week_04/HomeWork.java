@@ -1,4 +1,5 @@
 import io.netty.util.concurrent.DefaultThreadFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -18,7 +19,7 @@ public class HomeWork {
 
     public static void main(String[] args) throws InterruptedException, ExecutionException {
         long start = System.currentTimeMillis();
-        method7();
+        method9();
         System.out.println("异步计算结果为：" + result);
         System.out.println("使用时间："+ (System.currentTimeMillis()-start) + " ms");
     }
@@ -156,6 +157,47 @@ public class HomeWork {
             lock.unlock();
         }
 
+        executorService.shutdown();
+    }
+
+
+    private static void method8() throws InterruptedException {
+        ExecutorService executorService = Executors.newFixedThreadPool(4);
+        Object lock = new Object();
+        Runnable task = () -> {
+            synchronized (lock){
+                result.set(sum());
+                lock.notifyAll();
+            }
+        };
+
+        executorService.submit(task);
+        synchronized (lock) {
+            while (result.get() == 0) {
+                lock.wait();
+            }
+        }
+        executorService.shutdown();
+    }
+
+    private static void method9() throws InterruptedException {
+        ExecutorService executorService = Executors.newFixedThreadPool(4);
+        Semaphore semaphore = new Semaphore(1);
+        Runnable task = () -> {
+            try {
+                semaphore.acquire();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            result.set(sum());
+            semaphore.release();
+        };
+
+        executorService.submit(task);
+        semaphore.acquire();
+        while (result.get() == 0) {
+            semaphore.release();
+        }
         executorService.shutdown();
     }
 
