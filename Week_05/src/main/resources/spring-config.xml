@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id = "bookXml" class="work2.Book">
+        <constructor-arg name="name" value="xml测试" />
+        <constructor-arg name="author" value="yangxing" />
+        <constructor-arg name="price" value="666" />
+    </bean>
+
+    <bean name="student1" class="work3.Student">
+        <property name="name" value="yang"/>
+        <property name="age" value="18"/>
+    </bean>
+
+    <bean name="student2" class="work3.Student">
+        <property name="name" value="xing"/>
+        <property name="age" value="19"/>
+    </bean>
+
+    <bean name="student3" class="work3.Student">
+        <property name="name" value="yangxing"/>
+        <property name="age" value="20"/>
+    </bean>
+
+    <bean name="klass1" class="work3.Klass">
+        <property name="studentList">
+            <list>
+                <ref bean="student1"/>
+                <ref bean="student2"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean name="klass2" class="work3.Klass">
+        <property name="studentList">
+            <list>
+                <ref bean="student3"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean name="school" class="work3.School">
+        <property name="klassList">
+            <list>
+                <ref bean="klass1" />
+                <ref bean="klass2" />
+            </list>
+        </property>
+    </bean>
+</beans>
