@@ -13,6 +13,7 @@
         <module>Week_05</module>
         <module>springboot-redis-starter</module>
         <module>springboot-redis-autoconfig</module>
+        <module>springboot-test-autoconfig</module>
     </modules>
 
     <name>java-advanced</name>

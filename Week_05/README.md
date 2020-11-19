@@ -53,9 +53,9 @@
     > 实现了基于redis的自动装配的starter
     >
     > 代码见：  
-     [springboot-redis-autoconfig  starter](../../springboot-redis-autoconfig/src/main/java/configuration/RedisAutoConfiguration.java)
+     [springboot-redis-autoconfig  starter](../springboot-redis-autoconfig/src/main/java/configuration/RedisAutoConfiguration.java)
     > 
-    > [测试代码](../../springboot-mycache/src/main/java/com/controller/ServiceController.java)
+    > [测试代码](../springboot-mycache/src/main/java/com/controller/ServiceController.java)
 
 10. （必做）研究一下 JDBC 接口和数据库连接池，掌握它们的设计和用法：
     1. 使用 JDBC 原生接口，实现数据库的增删改查操作。
@@ -73,4 +73,4 @@
     > 4. 可指定 每访问一次，是否将刷新存活时间，默认否
     > 5. 支持基于SpEL的keyGenerator，可将入参的值 生成key
     > 
-    > 代码见： [springboot-mycache](../../springboot-mycache/src/main/java/com/cache/MyCache.java)
+    > 代码见： [springboot-mycache](../springboot-mycache/src/main/java/com/cache/MyCache.java)
