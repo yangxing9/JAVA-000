@@ -52,8 +52,10 @@
 7. （必做）给前面课程提供的 Student/Klass/School 实现自动配置和 Starter。
     > 实现了基于redis的自动装配的starter
     >
-    > 代码见：  [/Week_05/src/main/java/starter](../Week_05/src/main/java/starter/)
-
+    > 代码见：  
+     [/Week_05/src/main/java/starter](../Week_05/src/main/java/starter/)
+    > 
+    > [springboot-redis-autoconfig/src/main/java](../../springboot-redis-autoconfig/src/main/java)
 
 10. （必做）研究一下 JDBC 接口和数据库连接池，掌握它们的设计和用法：
     1. 使用 JDBC 原生接口，实现数据库的增删改查操作。
@@ -62,3 +64,13 @@
     
     > 
     > 代码见：[/Week_05/src/main/java/jdbc](../Week_05/src/main/java/jdbc/)
+
+11. (挑战)基于 AOP 和自定义注解，实现 @MyCache(60) 对于指定方法返回值缓存60秒
+    > 实现 @MyCache 注解，缓存方法的返回值
+    > 1. 可指定缓存时间，默认为-1(永不过期)
+    > 2. 可指定缓存策略（redis，EHCACHE，MEMORYCACHE），目前已实现redis
+    > 3. 可指定 是否缓存空值，默认为否
+    > 4. 可指定 每访问一次，是否将刷新存活时间，默认否
+    > 5. 支持基于SpEL的keyGenerator，可将入参的值 生成key
+    > 
+    > 代码见： [springboot-mycache](../../springboot-mycache/src/main/java/com/cache/MyCache.java)

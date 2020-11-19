@@ -1,0 +1,15 @@
+{
+  "properties": [
+    {
+      "name": "my.springboot.redis.host",
+      "type": "java.lang.String",
+      "description": "redis host."
+    },
+    {
+      "name": "my.springboot.redis.port",
+      "type": "java.lang.Integer",
+      "description": "redis port."
+    }
+  ]
+}
+
