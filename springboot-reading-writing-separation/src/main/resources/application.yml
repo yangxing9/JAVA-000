@@ -1,0 +1,70 @@
+debug: true
+server:
+  port: 8888
+  servlet:
+    context-path: /read-write
+
+druid:
+  type: com.alibaba.druid.pool.DruidDataSource
+  master:
+    url: jdbc:mysql://193.112.206.83:3306/test?characterEncoding=UTF-8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&useUnicode=true&useSSL=false
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: YangXing959130!
+    initial-size: 5
+    max-active: 10
+    min-idle: 5
+    max-wait: 60000
+    time-between-eviction-runs-millis: 3000
+    min-evictable-idle-time-millis: 300000
+    validation-query: SELECT 'x' FROM DUAL
+    test-while-idle: true
+    test-on-borrow: true
+    test-on-return: false
+    filters: stat,wall,log4j2
+  slave1:
+    url: jdbc:mysql://127.0.0.1:3307/test?characterEncoding=UTF-8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&useUnicode=true&useSSL=false
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: root
+    initial-size: 5
+    max-active: 10
+    min-idle: 5
+    max-wait: 60000
+    time-between-eviction-runs-millis: 3000
+    min-evictable-idle-time-millis: 300000
+    validation-query: SELECT 'x' FROM DUAL
+    test-while-idle: true
+    test-on-borrow: true
+    test-on-return: false
+    filters: stat,wall,log4j2
+  slave2:
+    url: jdbc:mysql://127.0.0.1:3308/test?characterEncoding=UTF-8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&useUnicode=true&useSSL=false
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: root
+    initial-size: 5
+    max-active: 10
+    min-idle: 5
+    max-wait: 60000
+    time-between-eviction-runs-millis: 3000
+    min-evictable-idle-time-millis: 300000
+    validation-query: SELECT 'x' FROM DUAL
+    test-while-idle: true
+    test-on-borrow: true
+    test-on-return: false
+    filters: stat,wall,log4j2
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.yx.po
+  configuration:
+    default-executor-type: SIMPLE
+
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+
+
+logging.level.org.springframework.boot.autoconfigure: error
