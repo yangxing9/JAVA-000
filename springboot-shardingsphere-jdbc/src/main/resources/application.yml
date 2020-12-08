@@ -1,0 +1,20 @@
+debug: true
+server:
+  port: 8888
+  servlet:
+    context-path: /read-write
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.yx.po
+  configuration:
+    default-executor-type: SIMPLE
+
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+
+
+logging.level.org.springframework.boot.autoconfigure: error

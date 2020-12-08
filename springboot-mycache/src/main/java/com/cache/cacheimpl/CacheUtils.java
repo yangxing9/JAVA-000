@@ -26,7 +26,7 @@ public class CacheUtils {
         Object res = null;
         switch (myCacheable.cacheStrategy()){
             case REDIS:
-                res = redisUtils.getCache(key,myCacheable.state(),myCacheable.ttl());
+                res = redisUtils.getCache(key,myCacheable.state(),myCacheable.expireTime());
                 break;
             case EHCACHE:
                 break;
@@ -43,7 +43,7 @@ public class CacheUtils {
         Object res = null;
         switch (myCacheable.cacheStrategy()){
             case REDIS:
-                res = redisUtils.putValue(key,value,myCacheable.cacheNull(),myCacheable.ttl());
+                res = redisUtils.putValue(key,value,myCacheable.cacheNull(),myCacheable.expireTime());
                 break;
             case EHCACHE:
                 break;

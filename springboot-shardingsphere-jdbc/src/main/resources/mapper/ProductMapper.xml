@@ -18,7 +18,7 @@
   </select>
 
   <select id="getProductPageList" resultMap="BaseResultMap">
-   SELECT
+    SELECT
     <include refid="Base_Column_List" />
     FROM
     product

@@ -1,7 +1,9 @@
 package com.cache;
 
 
+import com.TestserviceApplication;
 import com.cache.cacheimpl.CacheUtils;
+import com.service.CacheService;
 import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -10,8 +12,11 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringApplication;
 import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.expression.Expression;
 import org.springframework.expression.ExpressionParser;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
@@ -79,8 +84,9 @@ public class MyAspectCache {
         Class<?>[] parameterTypes = ((MethodSignature) joinPoint.getSignature()).getParameterTypes();
         // 根据类、方法、参数类型（重载）获取到方法的具体信息
         Method objMethod = targetClass.getMethod(methodName, parameterTypes);
+
         // 拿到方法定义的注解信息
-        return objMethod.getDeclaredAnnotation(MyCache.class);
+        return AnnotationUtils.getAnnotation(objMethod, MyCache.class);
     }
 
     /**

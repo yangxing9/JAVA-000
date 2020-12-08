@@ -1,5 +1,7 @@
 package com.cache;
 
+import org.springframework.core.annotation.AliasFor;
+
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -27,14 +29,17 @@ public @interface MyCache {
     /**
      * 生存时间，单位是秒，默认为-1(永不过期)
      */
+    @AliasFor("expireTime")
     int ttl() default -1;
 
+    @AliasFor("ttl")
+    int expireTime() default -1;
+
     /**
-     * 生存状态
      * true:每访问一次，将刷新存活时间
      * false:不刷新存活时间，时间一到就清除
      */
     boolean state() default true;
 
-    CacheEnum cacheStrategy();
+    CacheEnum cacheStrategy() default CacheEnum.REDIS;
 }

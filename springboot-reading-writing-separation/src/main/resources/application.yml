@@ -7,10 +7,10 @@ server:
 druid:
   type: com.alibaba.druid.pool.DruidDataSource
   master:
-    url: jdbc:mysql://xxx:3306/test?characterEncoding=UTF-8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&useUnicode=true&useSSL=false
+    url: jdbc:mysql://193.112.206.83:3306/test?characterEncoding=UTF-8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&useUnicode=true&useSSL=false
     driver-class-name: com.mysql.jdbc.Driver
     username: root
-    password: xxx
+    password: Yangxing959130!
     initial-size: 5
     max-active: 10
     min-idle: 5

@@ -17,8 +17,8 @@ public class CacheService {
 
 
 //    @MyCache(key = "'cache'+#p0", ttl = 30, state = true,cacheStrategy = CacheEnum.REDIS)
-//    @MyCache(key = "'cache'+#p0", ttl = 30, cacheStrategy = CacheEnum.REDIS)
-    @MyCache(key = "'yx'+#p0",cacheNull = true, cacheStrategy = CacheEnum.REDIS)
+    @MyCache(key = "'key'+#p0", ttl = 30)
+//    @MyCache(key = "'yx'+#p0",cacheNull = true, cacheStrategy = CacheEnum.REDIS)
     public Student cacheStudent(int index){
         Student student = new Student();
         student.setId("123");
