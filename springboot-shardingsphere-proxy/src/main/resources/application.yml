@@ -1,0 +1,40 @@
+debug: true
+server:
+  port: 8888
+  servlet:
+    context-path: /read-write
+
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    platform: mysql
+    url: jdbc:mysql://127.0.0.1:3309/sharding_db?characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai&rewriteBatchedStatements=true
+    username: root
+    password: root
+    druid:
+      initialSize: 5
+      minIdle: 5
+      maxActive: 20
+      maxWait: 60000
+      timeBetweenEvictionRunsMillis: 60000
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: SELECT 1
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      numTestsPerEvictionRun: 10
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.yx.po
+  configuration:
+    default-executor-type: SIMPLE
+
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+
+
+logging.level.org.springframework.boot.autoconfigure: error
