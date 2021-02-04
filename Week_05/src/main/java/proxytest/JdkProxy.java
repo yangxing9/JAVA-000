@@ -28,6 +28,10 @@ public class JdkProxy implements InvocationHandler {
 
 
     public static void main(String[] args) {
+        double a = 30.2;
+        double b = 20.1;
+        double res = a - b;
+        System.out.println(res);
         JdkProxy jdkProxy = new JdkProxy();
         UserManager user = (UserManager) jdkProxy.getJDKProxy(new UserManagerImpl());
         user.addUser("test","password");

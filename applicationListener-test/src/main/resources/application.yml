@@ -1,0 +1,10 @@
+debug: true
+server:
+  port: 8888
+  servlet:
+    context-path: /
+
+
+
+
+logging.level.org.springframework.boot.autoconfigure: error

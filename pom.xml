@@ -18,6 +18,7 @@
         <module>springboot-reading-writing-separation</module>
         <module>springboot-shardingsphere-jdbc</module>
         <module>springboot-shardingsphere-proxy</module>
+        <module>applicationListener-test</module>
     </modules>
 
     <name>java-advanced</name>
